@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 df = pd.read_csv("Data/WA_Fn-UseC_-Telco-Customer-Churn.csv")
 
 engine = create_engine(
-    "postgresql://postgres:Prabhas%40123@localhost:5432/CUSTOMER_CHURN_PROJECT"
+    "postgresql://postgres:Charan%4014@localhost:5432/CUSTOMER_CHURN_PROJECT"
 )
 
 df.to_sql(
