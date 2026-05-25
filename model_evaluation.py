@@ -188,3 +188,26 @@ else:
     print("\nBest Model: XGBoost")
 
 print("Best Accuracy:", best_accuracy)
+
+
+import joblib
+
+# Save Random Forest model
+joblib.dump(
+    rf_model,
+    "random_forest_model.pkl"
+)
+
+# Save XGBoost model
+joblib.dump(
+    xgb_model,
+    "xgboost_model.pkl"
+)
+
+# Save feature column names
+joblib.dump(
+    X.columns.tolist(),
+    "model_features.pkl"
+)
+
+print("Model files saved successfully!")
