@@ -30,7 +30,7 @@ st.write("""
 This dashboard presents Exploratory Data Analysis,
 Machine Learning model evaluation,
 FastAPI integration details,
-and final project insights.
+and final business insights.
 """)
 
 # ===================================================
@@ -45,110 +45,166 @@ st.subheader("Dataset Preview")
 
 st.dataframe(df.head())
 
+# ===================================================
+# ROW 1
+# ===================================================
+
+col1, col2 = st.columns(2)
+
 # Churn Distribution
 
-st.subheader("Customer Churn Distribution")
+with col1:
 
-fig, ax = plt.subplots(figsize=(6,4))
+    st.subheader("Customer Churn Distribution")
 
-sns.countplot(
-    x="Churn",
-    data=df,
-    ax=ax
-)
+    fig, ax = plt.subplots(figsize=(5,3))
 
-plt.title("Customer Churn Distribution")
+    sns.countplot(
+        x="Churn",
+        data=df,
+        ax=ax
+    )
 
-st.pyplot(fig)
+    plt.tight_layout()
+
+    st.pyplot(fig)
+
+    st.info(
+        "A significant number of customers have churned, indicating customer retention challenges."
+    )
 
 # Gender vs Churn
 
-st.subheader("Gender vs Churn")
+with col2:
 
-fig, ax = plt.subplots(figsize=(6,4))
+    st.subheader("Gender vs Churn")
 
-sns.countplot(
-    x="gender",
-    hue="Churn",
-    data=df,
-    ax=ax
-)
+    fig, ax = plt.subplots(figsize=(5,3))
 
-plt.title("Gender vs Churn")
+    sns.countplot(
+        x="gender",
+        hue="Churn",
+        data=df,
+        ax=ax
+    )
 
-st.pyplot(fig)
+    plt.tight_layout()
+
+    st.pyplot(fig)
+
+    st.info(
+        "Customer churn distribution is almost similar across genders."
+    )
+
+# ===================================================
+# ROW 2
+# ===================================================
+
+col3, col4 = st.columns(2)
 
 # Contract Type vs Churn
 
-st.subheader("Contract Type vs Churn")
+with col3:
 
-fig, ax = plt.subplots(figsize=(8,5))
+    st.subheader("Contract Type vs Churn")
 
-sns.countplot(
-    x="Contract",
-    hue="Churn",
-    data=df,
-    ax=ax
-)
+    fig, ax = plt.subplots(figsize=(5,3))
 
-plt.xticks(rotation=20)
+    sns.countplot(
+        x="Contract",
+        hue="Churn",
+        data=df,
+        ax=ax
+    )
 
-plt.title("Contract Type vs Churn")
+    plt.xticks(rotation=15)
 
-st.pyplot(fig)
+    plt.tight_layout()
+
+    st.pyplot(fig)
+
+    st.info(
+        "Customers with month-to-month contracts show higher churn rates."
+    )
 
 # Internet Service vs Churn
 
-st.subheader("Internet Service vs Churn")
+with col4:
 
-fig, ax = plt.subplots(figsize=(8,5))
+    st.subheader("Internet Service vs Churn")
 
-sns.countplot(
-    x="InternetService",
-    hue="Churn",
-    data=df,
-    ax=ax
-)
+    fig, ax = plt.subplots(figsize=(5,3))
 
-plt.title("Internet Service vs Churn")
+    sns.countplot(
+        x="InternetService",
+        hue="Churn",
+        data=df,
+        ax=ax
+    )
 
-st.pyplot(fig)
+    plt.tight_layout()
+
+    st.pyplot(fig)
+
+    st.info(
+        "Fiber optic customers show higher churn probability compared to DSL users."
+    )
+
+# ===================================================
+# ROW 3
+# ===================================================
+
+col5, col6 = st.columns(2)
 
 # Monthly Charges vs Churn
 
-st.subheader("Monthly Charges vs Churn")
+with col5:
 
-fig, ax = plt.subplots(figsize=(8,5))
+    st.subheader("Monthly Charges vs Churn")
 
-sns.boxplot(
-    x="Churn",
-    y="MonthlyCharges",
-    data=df,
-    ax=ax
-)
+    fig, ax = plt.subplots(figsize=(5,3))
 
-plt.title("Monthly Charges vs Churn")
+    sns.boxplot(
+        x="Churn",
+        y="MonthlyCharges",
+        data=df,
+        ax=ax
+    )
 
-st.pyplot(fig)
+    plt.tight_layout()
+
+    st.pyplot(fig)
+
+    st.info(
+        "Customers with higher monthly charges are more likely to churn."
+    )
 
 # Tenure Distribution
 
-st.subheader("Tenure Distribution")
+with col6:
 
-fig, ax = plt.subplots(figsize=(8,5))
+    st.subheader("Tenure Distribution")
 
-sns.histplot(
-    df["tenure"],
-    bins=30,
-    kde=True,
-    ax=ax
-)
+    fig, ax = plt.subplots(figsize=(5,3))
 
-plt.title("Customer Tenure Distribution")
+    sns.histplot(
+        df["tenure"],
+        bins=30,
+        kde=True,
+        ax=ax
+    )
 
-st.pyplot(fig)
+    plt.tight_layout()
 
-# Correlation Heatmap
+    st.pyplot(fig)
+
+    st.info(
+        "Customers with longer tenure are more likely to stay with the company."
+    )
+
+# ===================================================
+# HEATMAP
+# ===================================================
 
 st.subheader("Correlation Heatmap")
 
@@ -156,7 +212,7 @@ numeric_df = df.select_dtypes(
     include=['int64', 'float64']
 )
 
-fig, ax = plt.subplots(figsize=(10,6))
+fig, ax = plt.subplots(figsize=(7,4))
 
 sns.heatmap(
     numeric_df.corr(),
@@ -165,9 +221,13 @@ sns.heatmap(
     ax=ax
 )
 
-plt.title("Correlation Heatmap")
+plt.tight_layout()
 
 st.pyplot(fig)
+
+st.info(
+    "The heatmap shows relationships between numerical features in the dataset."
+)
 
 # ===================================================
 # WEEK 2 - MODEL EVALUATION
@@ -175,23 +235,37 @@ st.pyplot(fig)
 
 st.header("Week 2 - Machine Learning Model Evaluation")
 
+col7, col8 = st.columns(2)
+
 # Accuracy Comparison
 
-st.subheader("Model Accuracy Comparison")
+with col7:
 
-st.image(
-    "images/accuracy_comparison.png",
-    caption="Accuracy Comparison"
-)
+    st.subheader("Accuracy Comparison")
+
+    st.image(
+        "images/accuracy_comparison.png",
+        use_container_width=True
+    )
+
+    st.info(
+        "XGBoost achieved the highest prediction accuracy among all models."
+    )
 
 # Confusion Matrix
 
-st.subheader("Confusion Matrix")
+with col8:
 
-st.image(
-    "images/confusion_matrix.png",
-    caption="Random Forest Confusion Matrix"
-)
+    st.subheader("Confusion Matrix")
+
+    st.image(
+        "images/confusion_matrix.png",
+        use_container_width=True
+    )
+
+    st.info(
+        "The confusion matrix evaluates the classification performance of the Random Forest model."
+    )
 
 # SHAP Analysis
 
@@ -199,10 +273,16 @@ st.subheader("SHAP Feature Importance")
 
 st.image(
     "images/shap_feature_importance.png",
-    caption="SHAP Feature Importance"
+    use_container_width=True
 )
 
-# Feature Importance
+st.info(
+    "SHAP analysis identifies the most important features affecting customer churn."
+)
+
+# ===================================================
+# FEATURE IMPORTANCE
+# ===================================================
 
 st.subheader("Feature Importance")
 
@@ -227,7 +307,7 @@ importance_df = pd.DataFrame({
     "Importance": importance_scores
 })
 
-fig, ax = plt.subplots(figsize=(8,5))
+fig, ax = plt.subplots(figsize=(6,3))
 
 sns.barplot(
     x="Importance",
@@ -236,9 +316,13 @@ sns.barplot(
     ax=ax
 )
 
-plt.title("Top Feature Importance")
+plt.tight_layout()
 
 st.pyplot(fig)
+
+st.info(
+    "Billing details and customer tenure are among the most influential churn factors."
+)
 
 # ===================================================
 # WEEK 3 - FASTAPI
@@ -263,12 +347,9 @@ POST /predict_ltv
 POST /batch_predict
 """)
 
-st.subheader("Swagger Documentation")
-
-st.write("""
-Swagger API documentation is available at:
-http://127.0.0.1:8000/docs
-""")
+st.info(
+    "FastAPI enables real-time prediction and batch processing functionalities."
+)
 
 # ===================================================
 # WEEK 4 - FINAL RESULTS
@@ -278,26 +359,24 @@ st.header("Week 4 - Final Dashboard and Insights")
 
 # Metrics
 
-st.subheader("Project Metrics")
+col9, col10, col11 = st.columns(3)
 
-col1, col2, col3 = st.columns(3)
-
-col1.metric(
+col9.metric(
     "Dataset Rows",
     "7043"
 )
 
-col2.metric(
+col10.metric(
     "Models Used",
     "3"
 )
 
-col3.metric(
+col11.metric(
     "Best Accuracy",
     "88%"
 )
 
-# Final Insights
+# Business Insights
 
 st.subheader("Business Insights")
 
@@ -313,20 +392,21 @@ st.write("""
 • XGBoost achieved the highest prediction performance.
 """)
 
-# Final Conclusion
+# Conclusion
 
 st.subheader("Conclusion")
 
 st.write("""
 The project successfully analyzed customer behavior
 and predicted customer churn using Machine Learning models.
+
 FastAPI integration and dashboard visualization
-improved the usability and presentation of the project.
+improved usability, analytics, and business insights.
 """)
 
-# ---------------------------------------------------
+# ===================================================
 # FOOTER
-# ---------------------------------------------------
+# ===================================================
 
 st.write("---")
 
